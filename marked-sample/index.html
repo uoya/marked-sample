@@ -36,9 +36,10 @@
   <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js" integrity="sha256-0kaYYq3qitkkVZpP/6uKTJwfTpqFNM6OHDbsaYzw9Uw=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.min.js"></script>
   <script>
-    const BASE_URL = new URL(document.location).origin
+    const url = new URL(document.location);
     const page = new URL(document.location).searchParams.get("page");
-    fetch(new URL(`content/${page}`, BASE_URL).href).then((response) =>
+    const contentURL = new URL(`content/${page}`, url);
+    fetch(contentURL.href).then((response) =>
       response.text().then(md =>
               document.getElementById('content').innerHTML = DOMPurify.sanitize(marked.parse(md)))
     );
